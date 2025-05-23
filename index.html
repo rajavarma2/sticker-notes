@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sticky Notes App with Resizing & Tags</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="toolbar">
+    <button id="addNoteBtn">➕ New Note</button>
+    <select id="colorPicker">
+      <option value="#fff59d">Yellow</option>
+      <option value="#ffab91">Orange</option>
+      <option value="#a5d6a7">Green</option>
+      <option value="#90caf9">Blue</option>
+      <option value="#e1bee7">Purple</option>
+    </select>
+    <input id="tagInput" type="text" placeholder="Add tags (comma separated)" style="flex: 1; padding: 6px; margin-left: 10px;" />
+  </div>
+
+  <div id="board"></div>
+
+  <footer>
+    <p>© 2025 Made by <strong>Raja Varma</strong> Using AI prompting</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+  
