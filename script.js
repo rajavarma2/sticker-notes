@@ -5,12 +5,14 @@ window.onload = function () {
   const addNoteBtn = document.getElementById("addNoteBtn");
 
   // Create a new note
-  function addNote(content = "", x = 50, y = 50, color = colorPicker.value, tags = []) {
+  function addNote(content = "", x = 50, y = 50, color = colorPicker.value, tags = [], width = 200, height = 160) {
     const note = document.createElement("div");
     note.className = "note";
     note.style.background = color;
     note.style.left = x + "px";
     note.style.top = y + "px";
+    note.style.width = width + "px";
+    note.style.height = height + "px";
 
     // Delete button
     const deleteBtn = document.createElement("button");
@@ -21,7 +23,7 @@ window.onload = function () {
       saveNotes();
     };
 
-    // Textarea input for markdown (no preview now)
+    // Textarea input for markdown (no preview)
     const textarea = document.createElement("textarea");
     textarea.value = content;
 
@@ -35,12 +37,12 @@ window.onload = function () {
       saveNotes();
     });
 
-    // Resize event - save notes when resizing ends
+    // Save notes on resizing end
     note.addEventListener("mouseup", () => {
       saveNotes();
     });
 
-    // Append all elements (no markdown preview div)
+    // Append elements
     note.appendChild(deleteBtn);
     note.appendChild(textarea);
     note.appendChild(tagsDiv);
@@ -112,26 +114,17 @@ window.onload = function () {
   function loadNotes() {
     const notes = JSON.parse(localStorage.getItem("notes")) || [];
     notes.forEach(n => {
-      addNote(n.content, n.x, n.y, n.color, n.tags);
-      // After adding note, set width and height explicitly to preserve size
-      const noteElems = document.querySelectorAll(".note");
-      const lastNote = noteElems[noteElems.length - 1];
-      if(n.width) lastNote.style.width = n.width + "px";
-      if(n.height) lastNote.style.height = n.height + "px";
+      addNote(n.content, n.x, n.y, n.color, n.tags, n.width, n.height);
     });
   }
 
   // Add note button click listener
   addNoteBtn.addEventListener("click", () => {
-    // Read tags input and split by comma
     const rawTags = tagInput.value.trim();
     const tags = rawTags ? rawTags.split(",").map(t => t.trim()).filter(t => t.length > 0) : [];
     addNote("", 50, 50, colorPicker.value, tags);
-    // Clear tags input after adding note
     tagInput.value = "";
   });
-
-  window.addNote = addNote;
 
   loadNotes();
 };
